@@ -1,0 +1,2 @@
+resources   :视图资源目录
+Laravel使用的是blade的模板引擎:resources/views/welcome.blade.php  //每个文件必须加.blade.php的后缀
