@@ -1,5 +1,6 @@
-﻿<div style="width:600px;margin:0 auto;padding-top:20px;">
-    <form class="layui-form" action="">
+﻿<div style="width:800px;margin:0 auto;padding-top:20px;">
+    <form class="layui-form" id="form" method="post" action="{{url('/admin/article/add')}}" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <div class="layui-form-item">
             <label class="layui-form-label">上级菜单</label>
             <div class="layui-input-block">
@@ -20,34 +21,14 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">菜单图标</label>
-            <div class="layui-input-block">
-                <input type="text" name="icon" win-verify="required" placeholder="请输入图标src或者class" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">菜单名称</label>
+            <label class="layui-form-label">文章名称</label>
             <div class="layui-input-block">
                 <input type="text" name="name" win-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input" />
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">窗口标题</label>
-            <div class="layui-input-block">
-                <input type="text" name="title" placeholder="请输入菜单名称" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">菜单地址</label>
-            <div class="layui-input-block">
-                <input type="text" name="pageurl" placeholder="请输入菜单地址" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">菜单类型</label>
-            <div class="layui-input-block winui-radio">
-                <input type="radio" name="openType" value="1" title="HTML" />
-                <input type="radio" name="openType" value="2" title="Iframe" checked />
+            <label class="layui-form-label">文章内容</label>
+            <div class="layui-input-block" id="editor">
             </div>
         </div>
         <div class="layui-form-item">
@@ -65,7 +46,14 @@
     </form>
     <div class="tips">Tips：1.系统菜单不可以删除 2.窗口标题若不填则默认和菜单名称相同</div>
 </div>
+<script src="{{URL::asset('js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{URL::asset('js/wangEditor.min.js')}}"></script>
 <script>
+    //wangEditor富文本编辑器
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor.create();
     layui.use(['form','layer'], function (form) {
         var $ = layui.$
             , msg = winui.window.msg;
@@ -77,9 +65,20 @@
         form.on('submit(formAddMenu)', function (data) {
             //表单验证
             if (winui.verifyForm(data.elem)) {
-                layui.$.ajax({
-                    type: 'get',
-                    url: 'json/resfailed.json',
+                $('#form').ajaxSubmit(function(res){
+                    if(res.status==200){
+                        layer.msg('添加成功', {icon: 6});
+                        window.parent.location.reload();//刷新父页面
+                        parent.layer.close(index);//关闭当前的窗口
+                    }else {
+                        layer.msg('添加失败', {icon: 6});
+                        window.parent.location.reload();//刷新父页面
+                        parent.layer.close(index);//关闭当前的窗口
+                    }
+                })
+                /*layui.$.ajax({
+                    type: 'post',
+                    url: "",
                     async: false,
                     data: data.field,
                     dataType: 'json',
@@ -95,7 +94,7 @@
                         msg('添加失败');
                         console.log(xml.responseText);
                     }
-                });
+                });*/
             }
             return false;
         });

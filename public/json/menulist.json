@@ -47,7 +47,7 @@
     },
     {
       "title": "菜单设置",
-      "pageURL": "{{ url('admin/article')}}",
+      "pageURL": "admin/article",
       "name": "菜单设置",
       "icon": "fa-navicon",
       "openType": 2,

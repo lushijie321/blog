@@ -28,7 +28,7 @@
     <script src="{{URL::asset('lib/layui/layui.js')}}"></script>
     <script type="text/javascript">
         layui.config({
-            base: "{{URL::asset('js/')}}"
+            base: "/js/"
         }).use('menulist');
     </script>
     <script>

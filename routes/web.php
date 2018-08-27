@@ -18,3 +18,6 @@
 Route::get('/', 'Home\HomeController@index');
 Route::get('/admin', 'Admin\AdminController@index');
 Route::get('/admin/article', 'Admin\ArticleController@index');
+Route::get('/admin/article/add', 'Admin\ArticleController@add');
+Route::get('/admin/article/edit', 'Admin\ArticleController@edit');
+Route::get('/admin/article/del', 'Admin\ArticleController@del');

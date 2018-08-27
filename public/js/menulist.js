@@ -1,6 +1,6 @@
 ﻿//@ sourceURL=menulist.js
 layui.config({
-    base: 'lib/' //指定 winui 路径
+    base: "/lib/" //指定 winui 路径
     , version: '1.0.0-beta'
 }).extend({
     winui: 'winui/winui',
@@ -17,7 +17,7 @@ layui.config({
     table.render({
         id: tableId,
         elem: '#menu',
-        url: 'json/menulist.json',
+        url: '/json/menulist.json',
         //height: 'full-65', //自适应高度
         //size: '',   //表格尺寸，可选值sm lg
         //skin: '',   //边框风格，可选值line row nob
@@ -161,7 +161,7 @@ layui.config({
         var index = layer.load(1);
         $.ajax({
             type: 'get',
-            url: 'add.html',
+            url: '/admin/article/add',
             success: function (data) {
                 layer.close(index);
                 content = data;
@@ -171,8 +171,8 @@ layui.config({
                     type: 1,
                     title: '新增菜单',
                     content: content,
-                    area: ['50vw', '70vh'],
-                    offset: ['15vh', '25vw']
+                    area: ['55vw', '70vh'],
+                    offset: ['15vh', '22vw']
                 });
             },
             error: function (xml) {
@@ -221,6 +221,5 @@ layui.config({
     });
     //绑定工具栏刷新按钮事件
     $('#reloadTable').on('click', reloadTable);
-
     exports('menulist', {});
 });
